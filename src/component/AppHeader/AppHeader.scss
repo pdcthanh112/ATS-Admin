@@ -1,0 +1,28 @@
+.header-container {
+  padding: 1.2rem 2rem 1.5rem 2rem;
+  border-bottom: 2px solid #bbbbbb;
+  display: flex;
+  background-color: #fff;
+
+  .header-menu {
+    position: absolute;
+    right: 2rem;
+
+    .profile-image {
+      border-radius: 50%;
+    }
+
+    .linee {
+      border-bottom: 1px solid red;
+      height: 1rem;
+      width: 100%;
+    }
+    a:hover {
+      color: black;
+    }
+    .header-menu-item:hover {
+      color: #60d860;
+      border-radius: 1rem;
+    }
+  }
+}

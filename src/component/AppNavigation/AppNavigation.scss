@@ -1,0 +1,17 @@
+.navigation-container {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  .navigation-item:hover {
+    color: #000;
+  }
+
+  .when-active {
+    background-color: #20d48930;
+  }
+  .when-active:hover {
+    color: #000;
+  }
+}
