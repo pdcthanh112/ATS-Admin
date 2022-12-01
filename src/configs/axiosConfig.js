@@ -1,35 +1,28 @@
-import axios from 'axios';
-import queryString from 'query-string';
-import { useSelector, useDispatch } from 'react-redux'
+import axios from "axios";
+import { store } from "../redux/store";
 
-// Set up default config for http requests here
-const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+const API = axios.create({
+  baseURL: "http://localhost:8080/",
+  // baseURL: "https://ats-be.azurewebsites.net/",
   headers: {
-    'content-type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    "Content-Type": "application/json",
   },
-  paramsSerializer: params => queryString.stringify(params),
 });
 
-axios.interceptors.request.use((config) => {
-  const currentUser = useSelector((state) => state.auth.login.currentUser);
-  config.headers.authorization = currentUser.data.token;
-  return config;
-}, (error) => {
-    return Promise.reject(error);
-  }
+API.interceptors.request.use(
+  (config) => {
+    if (config.headers) {
+      if (!config.headers.Authorization) {
+        const token = store.getState().auth.login.currentUser?.token;
+
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
-axiosClient.interceptors.response.use((response) => {
-  //   if (response && response.data) {
-  //     return response;
-  //   }
-
-  return response;
-}, (error) => {
-  return Promise.reject(error);
-});
-
-export default axiosClient;
+export default API;

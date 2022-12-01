@@ -14,9 +14,11 @@ export const loginUser = async (user, dispatch, navigate) => {
     const response = await axiosConfig.post("/auth/login", user);
     if (response) {
       dispatch(loginSuccess(response.data.data));
-      navigate("/#/");
+      navigate("/dashboard");
     }
   } catch (error) {
+    console.log("check error", error)
+
     dispatch(loginFailed());
   }
 };
@@ -54,22 +56,22 @@ export const forgetPassword = async (email) => {
     .then((response) => response)
     .catch((error) => error);
 };
-export const resetPassword = async ( email, newPassword, resetToken) => {
+export const resetPassword = async (email, newPassword, resetToken) => {
   return axiosConfig
-    .patch("auth/reset-password", {         
-        email: email,
-        newPassword: newPassword,
-        token: resetToken,
+    .patch("auth/reset-password", {
+      email: email,
+      newPassword: newPassword,
+      token: resetToken,
     })
     .then((response) => response)
     .catch((error) => error);
 };
-export const changePassword = async ( email, newPassword, oldPassword) => {
+export const changePassword = async (email, newPassword, oldPassword) => {
   return axiosConfig
-    .patch("auth/change-password", {         
-        email: email,
-        newPassword: newPassword,
-        oldPassword: oldPassword,
+    .patch("auth/change-password", {
+      email: email,
+      newPassword: newPassword,
+      oldPassword: oldPassword,
     })
     .then((response) => response)
     .catch((error) => error);

@@ -1,11 +1,10 @@
-import React, { Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import React, { Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 // routes config
-import routes from '../../routes'
+import routes from "../../routes";
 
 const AppContent = () => {
-
   return (
     <React.Fragment>
       <Suspense>
@@ -21,14 +20,13 @@ const AppContent = () => {
                   element={<route.element />}
                 />
               )
-            )
+            );
           })}
           <Route path="/" element={<Navigate to="dashboard" replace />} />
-          
         </Routes>
       </Suspense>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default React.memo(AppContent)
+export default React.memo(AppContent);

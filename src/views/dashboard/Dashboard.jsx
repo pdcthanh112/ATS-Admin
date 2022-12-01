@@ -1,29 +1,18 @@
-import React, { useEffect } from 'react'
-import './Dashboard.scss'
+import React, { useEffect } from "react";
+import "./Dashboard.scss";
 
-import { getCategory } from '../../apis/recruimentRequestApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getCategory(dispatch)  
-  }, [])
-
+  useEffect(() => {}, []);
 
   return (
     <React.Fragment>
-
-      <div className='text-[red]'>asdfasdsaf
-      
-    
-      
-      </div>
-
+      <div className="text-[red]">fuck u Thành</div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
