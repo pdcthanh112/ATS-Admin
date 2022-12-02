@@ -28,6 +28,8 @@ import useUpdatePosition from "../hooks/useUpdatePosision";
 import CreateAPosition from "./pages/CreateAPosition";
 import EditPositionForm from "./pages/EditAPosition";
 import { styled } from "@mui/material/styles";
+import Badge from "react-bootstrap/Badge";
+import useActivePosition from "../hooks/useActivePosition";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,8 +106,10 @@ const PositionPage = () => {
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDisable, setOpenDisable] = useState(false);
+  const [openActive, setOpenActive] = useState(false);
   const { mutate: update } = useUpdatePosition();
   const { mutate: disable } = useDisablePosition();
+  const { mutate: active } = useActivePosition();
 
   const handleUpdate = (row) => {
     setOpenUpdate(true);
@@ -113,6 +117,10 @@ const PositionPage = () => {
   };
   const handleDisable = (row) => {
     setOpenDisable(true);
+    setId(row.id);
+  };
+  const handleActive = (row) => {
+    setOpenActive(true);
     setId(row.id);
   };
   const [id, setId] = useState();
@@ -134,6 +142,17 @@ const PositionPage = () => {
       onSuccess: () => {
         enqueueSnackbar("Disable successfully", { variant: "success" });
         setOpenDisable(false);
+      },
+      onError: (error) => {
+        enqueueSnackbar(error.message, { variant: "error" });
+      },
+    });
+  };
+  const activeSubmit = async () => {
+    await active(id, {
+      onSuccess: () => {
+        enqueueSnackbar("Active successfully", { variant: "success" });
+        setOpenActive(false);
       },
       onError: (error) => {
         enqueueSnackbar(error.message, { variant: "error" });
@@ -313,31 +332,49 @@ const PositionPage = () => {
                               </TableCell>
 
                               <TableCell sx={{ fontSize: 12 }} align="left">
-                                {row.status}
+                                {row.status === "ACTIVATE" ? (
+                                  <Badge bg="info">{row.status}</Badge>
+                                ) : (
+                                  <Badge bg="danger">{row.status}</Badge>
+                                )}
                               </TableCell>
                               <TableCell sx={{ fontSize: 12 }} align="left">
                                 {row.numberUsePosition}
                               </TableCell>
 
                               <TableCell sx={{ fontSize: 12 }} align="left">
-                                <button
-                                  onClick={() => {
-                                    handleUpdate(row);
-                                  }}
-                                  className="btn btn-primary w-20 ml-5"
-                                >
-                                  {" "}
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    handleDisable(row);
-                                  }}
-                                  className="btn btn-danger w-20 ml-2"
-                                >
-                                  {" "}
-                                  Disable
-                                </button>
+                                {row.status === "ACTIVATE" ? (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        handleUpdate(row);
+                                      }}
+                                      className="btn btn-primary w-20 ml-5"
+                                    >
+                                      {" "}
+                                      Edit
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        handleDisable(row);
+                                      }}
+                                      className="btn btn-danger w-20 ml-2"
+                                    >
+                                      {" "}
+                                      Disable
+                                    </button>
+                                  </>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      handleActive(row);
+                                    }}
+                                    className="btn btn-warning w-40 ml-5"
+                                  >
+                                    {" "}
+                                    Active
+                                  </button>
+                                )}
                               </TableCell>
                             </TableRow>
                           );
@@ -349,16 +386,37 @@ const PositionPage = () => {
                           aria-describedby="alert-dialog-description"
                         >
                           <DialogTitle id="alert-dialog-title">
-                            {"Disable a department"}
+                            {"Disable a position"}
                           </DialogTitle>
                           <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                              Do you really want to disable this department
+                              Do you really want to disable this position
                             </DialogContentText>
                           </DialogContent>
                           <DialogActions>
                             <Button onClick={handleClose}>Disagree</Button>
                             <Button onClick={disableSubmit} autoFocus>
+                              Agree
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                        <Dialog
+                          open={openActive}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {"Active a position"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                              Do you really want to active this position
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={activeSubmit} autoFocus>
                               Agree
                             </Button>
                           </DialogActions>

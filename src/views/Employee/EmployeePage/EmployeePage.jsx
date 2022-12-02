@@ -20,9 +20,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
+import { Badge } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import PaginationComponent from "../../../component/Pagination";
 import CreateAnEmployee from "../EmployeePage/pages/CreateAnEmployee";
+import useActive from "../hooks/useActive";
 import useDisable from "../hooks/useDisable";
 import getAllEmployeeAccounts from "../hooks/useGetAllEmployeeAccount";
 import useGetEmployeeById from "../hooks/useGetEmployeeById";
@@ -98,16 +100,19 @@ const EmployeePage = () => {
     setOpen(false);
     setOpenUpdate(false);
     setOpenConfirm(false);
+    setOpenActive(false);
   };
   const classes = useStyles();
 
   const { mutate: updateEmployee } = useUpdateEmployee();
   const { mutate: disableEmployee } = useDisable();
+  const { mutate: activeEmployee } = useActive();
   const { enqueueSnackbar } = useSnackbar();
 
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [openActive, setOpenActive] = useState(false);
   const [filter, setFilter] = useState({
     size: 10,
     page: 0,
@@ -121,6 +126,10 @@ const EmployeePage = () => {
   const handleDisable = (row) => {
     setId(row.employee.id);
     setOpenConfirm(true);
+  };
+  const handleActive = (row) => {
+    setOpenActive(true);
+    setId(row.employee.id);
   };
   const disableSubmit = async () => {
     await disableEmployee(id, {
@@ -142,6 +151,17 @@ const EmployeePage = () => {
       onSuccess: () => {
         enqueueSnackbar("Update successfully", { variant: "success" });
         setOpenUpdate(false);
+      },
+      onError: (error) => {
+        enqueueSnackbar(error.message, { variant: "error" });
+      },
+    });
+  };
+  const activeSubmit = async () => {
+    await activeEmployee(id, {
+      onSuccess: () => {
+        enqueueSnackbar("Active successfully", { variant: "success" });
+        setOpenActive(false);
       },
       onError: (error) => {
         enqueueSnackbar(error.message, { variant: "error" });
@@ -356,29 +376,50 @@ const EmployeePage = () => {
                                   {row.employee.phone}
                                 </TableCell>
                                 <TableCell sx={{ fontSize: 12 }} align="left">
-                                  {row.employee.status}
+                                  {row.employee.status === "ACTIVATE" ? (
+                                    <Badge bg="info">
+                                      {row.employee.status}
+                                    </Badge>
+                                  ) : (
+                                    <Badge bg="danger">
+                                      {row.employee.status}
+                                    </Badge>
+                                  )}
                                 </TableCell>
 
                                 <TableCell sx={{ fontSize: 12 }} align="left">
-                                  <button
-                                    onClick={() => {
-                                      handleUpdate(row);
-                                    }}
-                                    className="btn btn-primary w-20 ml-5"
-                                  >
-                                    {" "}
-                                    Edit
-                                  </button>
-
-                                  <button
-                                    onClick={() => {
-                                      handleDisable(row);
-                                    }}
-                                    className="btn btn-danger w-20 ml-2"
-                                  >
-                                    {" "}
-                                    Disable
-                                  </button>
+                                  {row.employee.status === "ACTIVATE" ? (
+                                    <>
+                                      <button
+                                        onClick={() => {
+                                          handleUpdate(row);
+                                        }}
+                                        className="btn btn-primary w-20 ml-5"
+                                      >
+                                        {" "}
+                                        Edit
+                                      </button>
+                                      <button
+                                        onClick={() => {
+                                          handleDisable(row);
+                                        }}
+                                        className="btn btn-danger w-20 ml-2"
+                                      >
+                                        {" "}
+                                        Disable
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <button
+                                      onClick={() => {
+                                        handleActive(row);
+                                      }}
+                                      className="btn btn-warning w-40 ml-5"
+                                    >
+                                      {" "}
+                                      Active
+                                    </button>
+                                  )}
                                 </TableCell>
                               </TableRow>
                             );
@@ -400,6 +441,27 @@ const EmployeePage = () => {
                             <DialogActions>
                               <Button onClick={handleClose}>Disagree</Button>
                               <Button onClick={disableSubmit} autoFocus>
+                                Agree
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                          <Dialog
+                            open={openActive}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                          >
+                            <DialogTitle id="alert-dialog-title">
+                              {"Active an employee"}
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText id="alert-dialog-description">
+                                Do you really want to active this employee
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose}>Disagree</Button>
+                              <Button onClick={activeSubmit} autoFocus>
                                 Agree
                               </Button>
                             </DialogActions>

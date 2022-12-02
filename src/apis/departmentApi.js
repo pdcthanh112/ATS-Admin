@@ -42,6 +42,10 @@ const departmentApi = {
         const url = `/department/delete/{id}?id=${id}`;
         return axiosConfig.delete(url);
     },
+    active(id) {
+        const url = `/department/active/{id}?id=${id}`;
+        return axiosConfig.patch(url);
+    },
 
 };
 export default departmentApi;

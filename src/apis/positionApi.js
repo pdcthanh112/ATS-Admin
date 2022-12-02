@@ -43,6 +43,10 @@ const positionApi = {
         const url = `/position/delete/{id}?id=${id}`;
         return axiosConfig.delete(url);
     },
+    active(id) {
+        const url = `/position/active/{id}?id=${id}`;
+        return axiosConfig.patch(url);
+    },
 
 };
 export default positionApi;

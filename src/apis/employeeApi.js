@@ -11,8 +11,12 @@ const employeeApi = {
     return axiosConfig.put(url, data);
   },
   disable(id) {
-    const url = `/employee/disable/{id}?id=${id}`;
+    const url = `/employee/disable/${id}`;
     return axiosConfig.put(url);
+  },
+  active(id) {
+    const url = `/employee/active/${id}`;
+    return axiosConfig.patch(url);
   },
 };
 export default employeeApi;

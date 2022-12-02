@@ -28,6 +28,8 @@ import useGetDepartmentById from "../hooks/useGetDepartmentById";
 import useUpdateDepartment from "../hooks/useUpdateDepartment";
 import CreateADepartment from "./pages/CreateADepartment";
 import EditDepartmentForm from "./pages/EditADepartment";
+import { Badge } from "react-bootstrap";
+import useActiveDepartment from "../hooks/useActiveDepartment";
 
 // DepartmentPage.propTypes = {};
 
@@ -93,6 +95,7 @@ const DepartmentPage = () => {
     setOpen(false);
     setOpenUpdate(false);
     setOpenDisable(false);
+    setOpenActive(false);
   };
   const classes = useStyles();
 
@@ -101,8 +104,10 @@ const DepartmentPage = () => {
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openDisable, setOpenDisable] = useState(false);
+  const [openActive, setOpenActive] = useState(false);
   const { mutate: updateDepartment } = useUpdateDepartment();
   const { mutate: disableDepartment } = useDisableDepartment();
+  const { mutate: activeDepartment } = useActiveDepartment();
   const [filter, setFilter] = useState({
     size: 10,
     page: 0,
@@ -114,6 +119,10 @@ const DepartmentPage = () => {
   };
   const handleDisable = (row) => {
     setOpenDisable(true);
+    setId(row.id);
+  };
+  const handleActive = (row) => {
+    setOpenActive(true);
     setId(row.id);
   };
   const [id, setId] = useState();
@@ -135,6 +144,17 @@ const DepartmentPage = () => {
       onSuccess: () => {
         enqueueSnackbar("Disable successfully", { variant: "success" });
         setOpenDisable(false);
+      },
+      onError: (error) => {
+        enqueueSnackbar(error.message, { variant: "error" });
+      },
+    });
+  };
+  const activeSubmit = async () => {
+    await activeDepartment(id, {
+      onSuccess: () => {
+        enqueueSnackbar("Active successfully", { variant: "success" });
+        setOpenActive(false);
       },
       onError: (error) => {
         enqueueSnackbar(error.message, { variant: "error" });
@@ -317,32 +337,71 @@ const DepartmentPage = () => {
                                 {row.phone}
                               </TableCell>
                               <TableCell sx={{ fontSize: 12 }} align="left">
-                                {row.status}
+                                {row.status === "ACTIVATE" ? (
+                                  <Badge bg="info">{row.status}</Badge>
+                                ) : (
+                                  <Badge bg="danger">{row.status}</Badge>
+                                )}
                               </TableCell>
 
                               <TableCell sx={{ fontSize: 12 }} align="left">
-                                <button
-                                  onClick={() => {
-                                    handleUpdate(row);
-                                  }}
-                                  className="btn btn-primary w-20 ml-5"
-                                >
-                                  {" "}
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    handleDisable(row);
-                                  }}
-                                  className="btn btn-danger w-20 ml-2"
-                                >
-                                  {" "}
-                                  Disable
-                                </button>
+                                {row.status === "ACTIVATE" ? (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        handleUpdate(row);
+                                      }}
+                                      className="btn btn-primary w-20 ml-5"
+                                    >
+                                      {" "}
+                                      Edit
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        handleDisable(row);
+                                      }}
+                                      className="btn btn-danger w-20 ml-2"
+                                    >
+                                      {" "}
+                                      Disable
+                                    </button>
+                                  </>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      handleActive(row);
+                                    }}
+                                    className="btn btn-warning w-40 ml-5"
+                                  >
+                                    {" "}
+                                    Active
+                                  </button>
+                                )}
                               </TableCell>
                             </TableRow>
                           );
                         })}
+                        <Dialog
+                          open={openActive}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {"Active a department"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                              Do you really want to active this department
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={activeSubmit} autoFocus>
+                              Agree
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
                         <Dialog
                           open={openDisable}
                           onClose={handleClose}
