@@ -6,6 +6,11 @@ const employeeApi = {
     const response = await axiosConfig.get(url);
     return response.data;
   },
+  async count() {
+    const url = "/employee/countTotal";
+    const total = await axiosConfig.get(url);
+    return total.data;
+  },
   update(data) {
     const url = `/employee/update/{id}?id=${data.id}`;
     return axiosConfig.put(url, data);
