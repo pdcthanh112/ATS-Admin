@@ -40,7 +40,10 @@ const Dashboard = () => {
                   <Typography sx={{ fontSize: 22 }}>EMPLOYEE</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" href="http://localhost:3000/#/employee">
+                  <Button
+                    size="small"
+                    href="https://ats-administrator.netlify.app/#/employee"
+                  >
                     See all
                   </Button>
                 </CardActions>
@@ -60,7 +63,7 @@ const Dashboard = () => {
                 <CardActions>
                   <Button
                     size="small"
-                    href="http://localhost:3000/#/department"
+                    href="https://ats-administrator.netlify.app/#/department"
                   >
                     See all
                   </Button>
@@ -79,7 +82,10 @@ const Dashboard = () => {
                   <Typography sx={{ fontSize: 22 }}>POSITION</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" href="http://localhost:3000/#/position">
+                  <Button
+                    size="small"
+                    href="https://ats-administrator.netlify.app/#/position"
+                  >
                     See all
                   </Button>
                 </CardActions>

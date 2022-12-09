@@ -109,7 +109,9 @@ const Login = () => {
             )}
           </div>
           {loginError && (
-            <div className="input-error p-2 rounded">Your Email is wrong</div>
+            <div className="input-error p-2 rounded">
+              Your Email or Password is wrong
+            </div>
           )}
           <div className="my-4">
             <a href="/#/forget-password" style={{ marginLeft: "15rem" }}>

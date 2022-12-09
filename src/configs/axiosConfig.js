@@ -2,8 +2,7 @@ import axios from "axios";
 import { store } from "../redux/store";
 
 const API = axios.create({
-  // baseURL: "http://localhost:8080/",
-  baseURL: "https://ats-be.azurewebsites.net/",
+  baseURL: "https://ats-fu-be.azurewebsites.net/",
   headers: {
     "Content-Type": "application/json",
   },
