@@ -70,7 +70,7 @@ const Dashboard = () => {
             <div>
               <Card
                 sx={{ minWidth: 370 }}
-                className="border-l-4 border-lime-700"
+                className="border-l-4 border-lime-800"
               >
                 <CardContent>
                   <Typography sx={{ fontSize: 20 }} color="green" gutterBottom>
@@ -84,6 +84,14 @@ const Dashboard = () => {
                   </Button>
                 </CardActions>
               </Card>
+            </div>
+          </div>
+          <div className="flex justify-between flex-wrap-reverse space-x-8 mt-3">
+            <div className="flex justify-between flex-wrap-reverse mt-10 text-2xl pl-3 rounded-md text-cyan-50 bg-lime-900 w-[50%]">
+              Manager
+            </div>
+            <div className="flex justify-between flex-wrap-reverse mt-10 text-2xl pl-3 rounded-md text-cyan-50 bg-lime-900 w-[35%]">
+              Director
             </div>
           </div>
         </>

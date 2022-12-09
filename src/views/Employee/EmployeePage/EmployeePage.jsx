@@ -348,6 +348,12 @@ const EmployeePage = () => {
                           {response.data.responseList.map((row) => {
                             return (
                               <TableRow
+                                onClick={() =>
+                                  console.log(
+                                    "Hii click hahaha",
+                                    row.employee.id
+                                  )
+                                }
                                 key={row.employee.id}
                                 sx={{
                                   "&:last-child td, &:last-child th": {

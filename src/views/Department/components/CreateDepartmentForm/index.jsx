@@ -48,16 +48,18 @@ function CreateDepartmentForm({ onSubmit }) {
       {isSubmitting && <LinearProgress />}
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="row">
-          <div className="col-lg-10 col-sm-6 mx-4">
+          <div className="col-lg-10 col-sm-6 mx-5">
             <InputField name="name" label="Name" form={form} />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-lg-4 col-sm-4 mx-4">
+          <div className="col-lg-6 col-sm-6 mx-5">
             <InputField name="room" label="Department Room" form={form} />
           </div>
-          <div className="col-lg-5 col-sm-4 mx-4">
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-sm-6 mx-5">
             <InputField name="phone" label="Phone" form={form} />
           </div>
         </div>

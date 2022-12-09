@@ -112,7 +112,7 @@ const Login = () => {
             <div className="input-error p-2 rounded">Your Email is wrong</div>
           )}
           <div className="my-4">
-            <a href="/#/forget-password" style={{ marginLeft: "17rem" }}>
+            <a href="/#/forget-password" style={{ marginLeft: "15rem" }}>
               Forget Password
             </a>
           </div>

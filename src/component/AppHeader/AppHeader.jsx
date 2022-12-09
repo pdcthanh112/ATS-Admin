@@ -39,19 +39,12 @@ const AppHeader = () => {
                 className="mx-2 py-2.5 font-medium text-lg"
                 style={{ width: "13rem" }}
               >
-                Hi, {currentUser.employee.name}
+                {currentUser.employee.name}
               </div>
               <i className="fa-solid fa-chevron-down m-1.5 py-2.5 text-xs"></i>
             </div>
           </a>
           <ul className="dropdown-menu">
-            <a
-              href="/#/view-profile"
-              className="dropdown-item header-menu-item"
-            >
-              <i className="fa-regular fa-address-card mr-2 text-[#60d860]"></i>
-              View profile
-            </a>
             <a
               href="/#/change-password"
               className="dropdown-item header-menu-item"

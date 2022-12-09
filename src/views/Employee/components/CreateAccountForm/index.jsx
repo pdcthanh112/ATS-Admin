@@ -42,6 +42,7 @@ function CreateAccountForm({ onSubmit }) {
       email: "",
       employeeCode: "",
       gender: "",
+      jobLevel: "EMPLOYEE",
       // image:
       //   "https://firebasestorage.googleapis.com/v0/b/ats-storage-44e44.appspot.com/o/employee-avatar%2Fdefault_avt.png?alt=media&token=c6fec769-60d9-4fd6-9025-47a1dbba6681",
       name: "",
@@ -121,8 +122,8 @@ function CreateAccountForm({ onSubmit }) {
             <InputField name="phone" label="Phone" form={form} />
           </div>
         </div>
-        <div className="row justify-between">
-          <div className="col-lg-9 col-sm-6 mx-4 w-10/12">
+        <div className="row">
+          <div className="col-lg-5 col-sm-6 mx-4 w-80">
             <SelectField
               name="departmentName"
               label="Department"
@@ -133,6 +134,17 @@ function CreateAccountForm({ onSubmit }) {
                     {x.name}
                   </MenuItem>
                 );
+              })}
+            />
+          </div>
+          <div className="col-lg-5 col-sm-6 mx-5 w-80">
+            <SelectField
+              name="positionName"
+              label="Positions"
+              disabled={disable}
+              form={form}
+              rows={positions?.data.map((x) => {
+                return <MenuItem value={x.name}>{x.name}</MenuItem>;
               })}
             />
           </div>
@@ -148,16 +160,8 @@ function CreateAccountForm({ onSubmit }) {
               })}
             />
           </div>
-          <div className="col-lg-5 col-sm-6 mx-10 w-80">
-            <SelectField
-              name="positionName"
-              label="Positions"
-              disabled={disable}
-              form={form}
-              rows={positions?.data.map((x) => {
-                return <MenuItem value={x.name}>{x.name}</MenuItem>;
-              })}
-            />
+          <div className="col-lg-5 col-sm-6 mx-4 p-7">
+            <InputField name="jobLevel" label="Job Level" form={form} />
           </div>
         </div>
 
@@ -165,7 +169,7 @@ function CreateAccountForm({ onSubmit }) {
         <br />
         <br />
         <br />
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={1}>
           <Button variant="contained" color="success" type="submit">
             <i className="fa fa-edit"></i> Create New Employee
           </Button>

@@ -428,6 +428,7 @@ const DepartmentPage = () => {
                           disableEscapeKeyDown
                           open={open}
                           onClose={handleClose}
+                          maxWidth="xl"
                           aria-labelledby="form-dialog-title"
                         >
                           <IconButton
