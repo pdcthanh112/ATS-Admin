@@ -11,14 +11,15 @@ function CreateAnEmployee(props) {
   const { closeDialog } = props;
   const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = async (values) => {
-    try {
-      console.log(values, "submit valueee");
-      await createAccount(values);
-      enqueueSnackbar("Create successfully", { variant: "success" });
-      closeDialog();
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
+    await createAccount(values, {
+      onSuccess: () => {
+        enqueueSnackbar("Create Employee successfully", { variant: "success" });
+        closeDialog();
+      },
+      onError: (error) => {
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
+      },
+    });
   };
 
   return (

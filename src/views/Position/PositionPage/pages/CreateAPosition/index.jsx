@@ -11,13 +11,15 @@ function CreateAPosition(props) {
   const { closeDialog } = props;
   const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = async (values) => {
-    try {
-      await create(values);
-      enqueueSnackbar("Create successfully", { variant: "success" });
-      closeDialog();
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
+    await create(values, {
+      onSuccess: () => {
+        enqueueSnackbar("Create Position successfully", { variant: "success" });
+        closeDialog();
+      },
+      onError: (error) => {
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
+      },
+    });
   };
 
   return (

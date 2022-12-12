@@ -30,6 +30,7 @@ import getAllEmployeeAccounts from "../hooks/useGetAllEmployeeAccount";
 import useGetEmployeeById from "../hooks/useGetEmployeeById";
 import useUpdateEmployee from "../hooks/useUpdateAccount";
 import EditEmployeeForm from "./pages/EditAnEmployee";
+import EmployeeDetails from "./pages/EmployeeDetails";
 
 // DepartmentPage.propTypes = {};
 
@@ -87,10 +88,7 @@ const BootstrapButton = styled(Button)({
 });
 const EmployeePage = () => {
   const form = useForm();
-  const { handleSubmit, register } = form;
-  const handleOpen = () => {
-    setOpen(true);
-  };
+
   const [isEdit, setIsEdit] = useState(false);
 
   const onNotEdit = () => {
@@ -101,6 +99,7 @@ const EmployeePage = () => {
     setOpenUpdate(false);
     setOpenConfirm(false);
     setOpenActive(false);
+    setOpenDetail(false);
   };
   const classes = useStyles();
 
@@ -110,6 +109,7 @@ const EmployeePage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [open, setOpen] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openActive, setOpenActive] = useState(false);
@@ -131,6 +131,14 @@ const EmployeePage = () => {
     setOpenActive(true);
     setId(row.employee.id);
   };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleOpenDetail = (id) => {
+    setOpenDetail(true);
+    setId(id);
+  };
+
   const disableSubmit = async () => {
     await disableEmployee(id, {
       onSuccess: () => {
@@ -138,11 +146,11 @@ const EmployeePage = () => {
         setOpenConfirm(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
-  const [id, setId] = useState();
+  const [id, setId] = useState(1);
   const { data: detail, isLoading: isLoadingDetail } = useGetEmployeeById(id);
 
   const updateSubmit = async (values) => {
@@ -153,7 +161,7 @@ const EmployeePage = () => {
         setOpenUpdate(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -164,7 +172,7 @@ const EmployeePage = () => {
         setOpenActive(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -178,7 +186,7 @@ const EmployeePage = () => {
           <div className="panel-body">
             <div className="table-responsive">
               <div className="flex justify-between flex-wrap-reverse">
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full mt-4">
                   <Stack spacing={2} direction="row">
                     <BootstrapButton
                       variant="contained"
@@ -348,12 +356,6 @@ const EmployeePage = () => {
                           {response.data.responseList.map((row) => {
                             return (
                               <TableRow
-                                onClick={() =>
-                                  console.log(
-                                    "Hii click hahaha",
-                                    row.employee.id
-                                  )
-                                }
                                 key={row.employee.id}
                                 sx={{
                                   "&:last-child td, &:last-child th": {
@@ -361,27 +363,69 @@ const EmployeePage = () => {
                                   },
                                 }}
                               >
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.id}
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.name}
                                 </TableCell>
 
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.email}
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.position.name}
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.department.name}
                                 </TableCell>
 
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.phone}
                                 </TableCell>
-                                <TableCell sx={{ fontSize: 12 }} align="left">
+                                <TableCell
+                                  onClick={() => {
+                                    handleOpenDetail(row.employee.id);
+                                  }}
+                                  sx={{ fontSize: 12 }}
+                                  align="left"
+                                >
                                   {row.employee.status === "ACTIVATE" ? (
                                     <Badge bg="info">
                                       {row.employee.status}
@@ -491,6 +535,31 @@ const EmployeePage = () => {
                             <DialogContent>
                               <>
                                 <CreateAnEmployee closeDialog={handleClose} />
+                              </>
+                            </DialogContent>
+                          </Dialog>
+                          <Dialog
+                            disableBackdropClick
+                            disableEscapeKeyDown
+                            fullWidth={true}
+                            open={openDetail}
+                            maxWidth="md"
+                            onClose={handleClose}
+                            aria-labelledby="form-dialog-title"
+                          >
+                            <IconButton
+                              className={classes.closeButton}
+                              onClick={handleClose}
+                            >
+                              <Close />
+                            </IconButton>
+
+                            <DialogContent>
+                              <>
+                                <EmployeeDetails
+                                  key="detailsForm"
+                                  employeeDetails={detail?.data}
+                                />
                               </>
                             </DialogContent>
                           </Dialog>

@@ -10,7 +10,7 @@ const accountApi = {
                 console.log(response);
             })
             .catch((error) => {
-                throw error.response.data.errorCode;
+                throw error;
             });
     },
     async getAllEmployeeAccounts(filter) {

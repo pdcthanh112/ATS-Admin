@@ -73,9 +73,6 @@ function EditEmployeeForm({ onSubmit, editEmployee, onNotEdit }) {
   };
 
   const handleSubmit = (values) => {
-    // if (editEmployee.imgURL.length === 0 && images.length > 0) {
-    //     delete Values.images;
-
     let birthDay = moment(values.dob).format("YYYY-MM-DD");
     values = {
       ...values,
@@ -105,20 +102,6 @@ function EditEmployeeForm({ onSubmit, editEmployee, onNotEdit }) {
         (error) => {
           console.log(error);
         }
-
-        // async () => {
-        //   await storage
-        //     .ref("employee-avatar")
-        //     .child(images.name)
-        //     .getDownloadURL()
-        //     .then((url) => {
-        //       console.log("images url", url);
-        //       // onSubmit({
-        //       //   ...values,
-        //       //   images: url,
-        //       // });
-        //     });
-        // }
       );
     } else {
       onSubmit({

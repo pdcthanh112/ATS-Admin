@@ -133,7 +133,7 @@ const PositionPage = () => {
         setOpenUpdate(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -144,7 +144,7 @@ const PositionPage = () => {
         setOpenDisable(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -155,7 +155,7 @@ const PositionPage = () => {
         setOpenActive(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -167,7 +167,7 @@ const PositionPage = () => {
           <div className="panel-body">
             <div className="table-responsive">
               <div className="flex justify-between flex-wrap-reverse">
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full mt-4">
                   <Stack spacing={2} direction="row">
                     <BootstrapButton
                       variant="contained"

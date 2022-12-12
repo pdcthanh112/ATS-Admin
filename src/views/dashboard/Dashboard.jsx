@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.scss";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -6,15 +6,22 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-import { useDispatch, useSelector } from "react-redux";
 import useCount from "./hooks/useCount";
 import { CircularProgress } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import useGetByManager from "./hooks/useGetByManager";
+import useGetByDirector from "./hooks/useGetByDirector";
+import PaginationComponent from "../../component/Pagination";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {}, []);
+  const [filter, setFilter] = useState({
+    size: 3,
+    page: 0,
+  });
+  const { data: responseManager, isLoading: loadingManager } =
+    useGetByManager(filter);
+  const { data: responseDirector, isLoading: loadingDirector } =
+    useGetByDirector(filter);
   const { data: response, isLoading } = useCount();
   return (
     <React.Fragment>
@@ -40,12 +47,14 @@ const Dashboard = () => {
                   <Typography sx={{ fontSize: 22 }}>EMPLOYEE</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    size="small"
-                    href="https://ats-administrator.netlify.app/#/employee"
+                  <NavLink
+                    to="/employee"
+                    className={({ isActive }) =>
+                      isActive ? "when-active" : "navigation-item"
+                    }
                   >
-                    See all
-                  </Button>
+                    <Button size="small">See all</Button>
+                  </NavLink>
                 </CardActions>
               </Card>
             </div>
@@ -61,12 +70,14 @@ const Dashboard = () => {
                   <Typography sx={{ fontSize: 22 }}>DEPARTMENT</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    size="small"
-                    href="https://ats-administrator.netlify.app/#/department"
+                  <NavLink
+                    to="/department"
+                    className={({ isActive }) =>
+                      isActive ? "when-active" : "navigation-item"
+                    }
                   >
-                    See all
-                  </Button>
+                    <Button size="small">See all</Button>
+                  </NavLink>
                 </CardActions>
               </Card>
             </div>
@@ -82,22 +93,108 @@ const Dashboard = () => {
                   <Typography sx={{ fontSize: 22 }}>POSITION</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    size="small"
-                    href="https://ats-administrator.netlify.app/#/position"
+                  <NavLink
+                    to="/position"
+                    className={({ isActive }) =>
+                      isActive ? "when-active" : "navigation-item"
+                    }
                   >
-                    See all
-                  </Button>
+                    <Button size="small">See all</Button>
+                  </NavLink>
                 </CardActions>
               </Card>
             </div>
           </div>
-          <div className="flex justify-between flex-wrap-reverse space-x-8 mt-3">
-            <div className="flex justify-between flex-wrap-reverse mt-10 text-2xl pl-3 rounded-md text-cyan-50 bg-lime-900 w-[50%]">
-              Manager
+          <div className="flex justify-between flex-col mt-3">
+            <div className="flex flex-row justify-between">
+              <div className="text-2xl pl-4 py-2 rounded-md text-cyan-50 bg-lime-900 w-[41%]">
+                Manager
+              </div>
+              <div className="text-2xl pl-4 py-2 rounded-md text-cyan-50 bg-lime-900 w-[37%]">
+                Director
+              </div>
             </div>
-            <div className="flex justify-between flex-wrap-reverse mt-10 text-2xl pl-3 rounded-md text-cyan-50 bg-lime-900 w-[35%]">
-              Director
+            <div>
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-col space-y-3 mt-2">
+                  {loadingManager ? (
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    responseManager.data.responseList.map((data) => {
+                      return (
+                        <div>
+                          <Card>
+                            <CardContent className="flex justify-between">
+                              <Typography
+                                className="w-96"
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                              >
+                                {data.name}
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                                className="pl-1"
+                              >
+                                {data.code}
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    })
+                  )}
+                  <PaginationComponent
+                    filter={filter}
+                    setFilter={setFilter}
+                    total={responseManager?.data.totalPage}
+                  />
+                </div>
+                <div className="flex flex-col space-y-3 mt-2">
+                  {loadingDirector ? (
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    responseDirector.data.responseList.map((data) => {
+                      return (
+                        <div>
+                          <Card>
+                            <CardContent className="flex justify-between">
+                              <Typography
+                                className="w-80"
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                              >
+                                {data.name}
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                                className="pr-2"
+                              >
+                                {data.code}
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    })
+                  )}
+                  <PaginationComponent
+                    filter={filter}
+                    setFilter={setFilter}
+                    total={responseDirector?.data.totalPage}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </>

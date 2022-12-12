@@ -135,7 +135,7 @@ const DepartmentPage = () => {
         setOpenUpdate(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -146,7 +146,7 @@ const DepartmentPage = () => {
         setOpenDisable(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -157,7 +157,7 @@ const DepartmentPage = () => {
         setOpenActive(false);
       },
       onError: (error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       },
     });
   };
@@ -170,7 +170,7 @@ const DepartmentPage = () => {
           <div className="panel-body">
             <div className="table-responsive">
               <div className="flex justify-between flex-wrap-reverse">
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full mt-4">
                   <Stack spacing={2} direction="row">
                     <BootstrapButton
                       variant="contained"

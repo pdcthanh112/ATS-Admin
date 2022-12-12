@@ -42,9 +42,9 @@ function CreateAccountForm({ onSubmit }) {
       email: "",
       employeeCode: "",
       gender: "",
-      jobLevel: "EMPLOYEE",
-      // image:
-      //   "https://firebasestorage.googleapis.com/v0/b/ats-storage-44e44.appspot.com/o/employee-avatar%2Fdefault_avt.png?alt=media&token=c6fec769-60d9-4fd6-9025-47a1dbba6681",
+      jobLevel: "",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/ats-storage-44e44.appspot.com/o/employee-avatar%2Fdefault_avt.png?alt=media&token=c6fec769-60d9-4fd6-9025-47a1dbba6681",
       name: "",
       password: "",
       phone: "",
