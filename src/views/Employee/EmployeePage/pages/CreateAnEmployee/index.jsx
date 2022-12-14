@@ -24,7 +24,7 @@ function CreateAnEmployee(props) {
 
   return (
     <>
-      <Typography color="green" variant="h4">
+      <Typography color="green" variant="h4" className="mt-4">
         Create An Employee
       </Typography>
       <CreateAccountForm onSubmit={handleSubmit} />

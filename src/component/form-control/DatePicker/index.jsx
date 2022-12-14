@@ -32,7 +32,7 @@ function MyDatePicker({ form, name, label, disabled, placeholder }) {
           >
             <InputLabel
               id="demo-simple-select-label"
-              style={{ fontSize: "12px", marginTop: "16px" }}
+              style={{ fontSize: "12px", marginTop: "9px" }}
             >
               {label}
             </InputLabel>
@@ -45,7 +45,6 @@ function MyDatePicker({ form, name, label, disabled, placeholder }) {
             placeholder={placeholder}
             disabled={disabled}
             error={hasError}
-            variant="outlined"
             margin="normal"
             helperText={formState.errors[name]?.message}
             InputProps={{ style: { fontSize: 14 } }}

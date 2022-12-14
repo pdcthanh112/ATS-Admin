@@ -44,31 +44,28 @@ function CreatePositionForm({ onSubmit }) {
     <div>
       {isSubmitting && <LinearProgress />}
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="row">
-          <div className="col-lg-10 col-sm-6 mx-4">
-            <SelectField
-              name="departmentId"
-              label="Department"
-              form={form}
-              rows={departments?.data.map((x) => {
-                return <MenuItem value={x.id}>{x.name}</MenuItem>;
-              })}
-            />
-          </div>
-          <div className="col-lg-10 col-sm-6 mx-4">
-            <InputField name="name" label="Name" form={form} />
-          </div>
+        <div className="col-lg mx-2">
+          <SelectField
+            name="departmentId"
+            label="Department"
+            form={form}
+            rows={departments?.data.map((x) => {
+              return <MenuItem value={x.id}>{x.name}</MenuItem>;
+            })}
+          />
         </div>
 
+        <div className="col-sm-6">
+          <InputField name="name" label="Name" form={form} />
+        </div>
         <br />
-        <br />
-        <br />
-        <br />
-        <Stack direction="row" spacing={2}>
-          <Button variant="contained" color="success" type="submit">
-            <i className="fa fa-edit"></i> Create New Position
-          </Button>
-        </Stack>
+        <div className="flex justify-center">
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="success" type="submit">
+              <i className="fa fa-edit"></i> Create New Position
+            </Button>
+          </Stack>
+        </div>
       </form>
     </div>
   );

@@ -13,7 +13,7 @@ InputField.propTypes = {
 };
 
 function InputField(props) {
-  const { form, name, label, disabled, placeholder, value } = props;
+  const { form, name, label, disabled, placeholder, value, size } = props;
   const { formState } = form;
   const hasError = formState.errors[name];
   return (
@@ -25,7 +25,7 @@ function InputField(props) {
           <Box
             component="form"
             sx={{
-              "& > :not(style)": { m: 1, width: "30ch" },
+              "& > :not(style)": { m: 1, width: size ? size : "30ch" },
             }}
             noValidate
             autoComplete="off"
@@ -40,8 +40,8 @@ function InputField(props) {
               error={hasError}
               variant="outlined"
               // margin="normal"
-              // InputProps={{ style: { fontSize: 14 } }}
-              // InputLabelProps={{ style: { fontSize: 14 } }}
+              InputProps={{ style: { fontSize: 14 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
             />
           </Box>
           {hasError && (

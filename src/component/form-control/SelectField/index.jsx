@@ -32,7 +32,7 @@ function SelectField(props) {
           >
             <InputLabel
               id="outlined-basic"
-              style={{ fontSize: "12px", marginTop: "25px" }}
+              style={{ fontSize: "12px", marginTop: "10px" }}
             >
               {label}
             </InputLabel>

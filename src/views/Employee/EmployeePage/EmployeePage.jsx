@@ -345,7 +345,7 @@ const EmployeePage = () => {
                                 key="updateForm"
                                 onSubmit={updateSubmit}
                                 editEmployee={detail?.data}
-                                onNotEdit={onNotEdit}
+                                onNotEdit={handleClose}
                               />
                             )}
                           </>

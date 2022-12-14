@@ -26,7 +26,7 @@ function CreateADepartment(props) {
 
   return (
     <>
-      <Typography color="green" variant="h4">
+      <Typography color="green" variant="h4" className="mt-4">
         Create A Department
       </Typography>
       <CreateDepartmentForm onSubmit={handleSubmit} />

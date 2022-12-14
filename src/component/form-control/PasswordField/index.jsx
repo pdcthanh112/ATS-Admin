@@ -13,7 +13,7 @@ PasswordField.propTypes = {
 };
 
 function PasswordField(props) {
-  const { form, name, label, disabled } = props;
+  const { form, name, label, disabled, size } = props;
   const { formState } = form;
   const hasError = formState.errors[name];
 
@@ -25,7 +25,7 @@ function PasswordField(props) {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "30ch" },
+            "& > :not(style)": { m: 1, width: size ? size : "30ch" },
           }}
           noValidate
           autoComplete="off"

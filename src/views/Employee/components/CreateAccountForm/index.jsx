@@ -84,26 +84,36 @@ function CreateAccountForm({ onSubmit }) {
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div className="row">
           <div className="col-lg-5 col-sm-6 mx-4">
-            <InputField name="name" label="Name" form={form} />
+            <InputField name="name" label="Name" form={form} size="34ch" />
           </div>
-          <div className="col-lg-5 col-sm-6 mx-4">
-            <InputField name="employeeCode" label="Employee Code" form={form} />
+          <div className="col-lg-5 col-sm-6">
+            <InputField
+              name="employeeCode"
+              label="Employee Code"
+              form={form}
+              size="34ch"
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-5 col-sm-4 mx-4">
-            <InputField name="email" label="Email" form={form} />
+            <InputField name="email" label="Email" form={form} size="34ch" />
           </div>
-          <div className="col-lg-5 col-sm-6 mx-4">
-            <PasswordField name="password" label="Password" form={form} />
+          <div className="col-lg-5 col-sm-6">
+            <PasswordField
+              name="password"
+              label="Password"
+              form={form}
+              size="34ch"
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-lg-5 col-sm-6 mx-4 px-4">
             <MyDatePicker name="dob" label="Date of Birth" form={form} />
           </div>
-          <div className="col-lg-4 col-sm-6 mx-4 px-3">
+          <div className="col-lg-5 col-sm-6 ml-1" style={{ width: "19.7rem" }}>
             <SelectField
               name="gender"
               label="Gender"
@@ -115,11 +125,16 @@ function CreateAccountForm({ onSubmit }) {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-5 col-sm-6 mx-4">
-            <InputField name="address" label="Address" form={form} />
+          <div className="col-lg-5 col-sm-6 mr-4 ml-4">
+            <InputField
+              name="address"
+              label="Address"
+              form={form}
+              size="34ch"
+            />
           </div>
-          <div className="col-lg-5 col-sm-6 mx-4">
-            <InputField name="phone" label="Phone" form={form} />
+          <div className="col-lg-5 col-sm-6 ml-3">
+            <InputField name="phone" label="Phone" form={form} size="34ch" />
           </div>
         </div>
         <div className="row">
@@ -161,14 +176,15 @@ function CreateAccountForm({ onSubmit }) {
             />
           </div>
           <div className="col-lg-5 col-sm-6 mx-4 p-7">
-            <InputField name="jobLevel" label="Job Level" form={form} />
+            <InputField
+              name="jobLevel"
+              label="Job Level"
+              form={form}
+              size="34ch"
+            />
           </div>
         </div>
 
-        <br />
-        <br />
-        <br />
-        <br />
         <Stack direction="row" spacing={1}>
           <Button variant="contained" color="success" type="submit">
             <i className="fa fa-edit"></i> Create New Employee

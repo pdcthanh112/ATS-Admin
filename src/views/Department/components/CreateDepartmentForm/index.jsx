@@ -64,15 +64,13 @@ function CreateDepartmentForm({ onSubmit }) {
           </div>
         </div>
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <Stack direction="row" spacing={2}>
-          <Button variant="contained" color="success" type="submit">
-            <i className="fa fa-edit"></i> Create New Department
-          </Button>
-        </Stack>
+        <div className="flex justify-center my-2">
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="success" type="submit">
+              <i className="fa fa-edit"></i> Create New Department
+            </Button>
+          </Stack>
+        </div>
       </form>
     </div>
   );

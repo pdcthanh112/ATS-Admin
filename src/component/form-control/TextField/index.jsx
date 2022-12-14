@@ -15,7 +15,7 @@ function MyTextField(props) {
       <Typography>
         <InputLabel
           id="demo-simple-select-label"
-          style={{ fontSize: "12px", marginTop: "8px" }}
+          style={{ fontSize: "12px", marginTop: "8px", marginBottom: "3px" }}
         >
           {label}
         </InputLabel>
@@ -36,6 +36,7 @@ function MyTextField(props) {
           value={value}
           placeholder={placeholder}
           fullWidth
+          disabled
           variant="outlined"
           InputProps={{ style: { fontSize: 14 } }}
           InputLabelProps={{ style: { fontSize: 14 } }}

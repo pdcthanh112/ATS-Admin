@@ -59,21 +59,21 @@ function EditPositionForm({ onSubmit, editPosition, onNotEdit }) {
     <div>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <div>
-          <Typography color="green" variant="h4">
+          <Typography color="green" variant="h4" className="mt-4">
             Edit A Position
           </Typography>
-          <div className="row my-5">
+          <div className="row mt-2">
             <div className="col-lg-5 col-sm-6 mx-4">
               <MyTextField name="id" label="ID" value={editPosition.id} />
             </div>
           </div>
-          <div className="row my-5">
-            <div className="col-lg-7 col-sm-6 mx-4">
-              <InputField name="name" label="Name" form={form} />
+          <div className="row mt-2">
+            <div className="col-lg-5 mr-4 ml-4">
+              <InputField name="name" label="Name Position" form={form} />
             </div>
           </div>
-          <div className="row my-5">
-            <div className="col-lg-7 col-sm-6 mx-4">
+          <div className="row">
+            <div className="col-lg mx-4">
               <SelectField
                 name="departmentId"
                 label="Department"
@@ -88,21 +88,19 @@ function EditPositionForm({ onSubmit, editPosition, onNotEdit }) {
               />
             </div>
           </div>
-          <div className="row my-5">
-            <div className="col-lg-5 col-sm-6 mx-4 mt-20">
-              <Stack direction="row" spacing={2}>
-                <Button variant="contained" color="primary" type="submit">
-                  Confirm
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => onNotEdit()}
-                >
-                  Cancel
-                </Button>
-              </Stack>
-            </div>
+          <div className="col-lg-8 mx-4 mt-5 mb-2">
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => onNotEdit()}
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" color="primary" type="submit">
+                Confirm
+              </Button>
+            </Stack>
           </div>
         </div>
       </form>

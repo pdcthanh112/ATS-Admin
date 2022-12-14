@@ -14,14 +14,18 @@ import useGetByDirector from "./hooks/useGetByDirector";
 import PaginationComponent from "../../component/Pagination";
 
 const Dashboard = () => {
-  const [filter, setFilter] = useState({
+  const [filterManager, setFilterManager] = useState({
+    size: 3,
+    page: 0,
+  });
+  const [filterDirector, setFilterDirector] = useState({
     size: 3,
     page: 0,
   });
   const { data: responseManager, isLoading: loadingManager } =
-    useGetByManager(filter);
+    useGetByManager(filterManager);
   const { data: responseDirector, isLoading: loadingDirector } =
-    useGetByDirector(filter);
+    useGetByDirector(filterDirector);
   const { data: response, isLoading } = useCount();
   return (
     <React.Fragment>
@@ -107,7 +111,7 @@ const Dashboard = () => {
           </div>
           <div className="flex justify-between flex-col mt-3">
             <div className="flex flex-row justify-between">
-              <div className="text-2xl pl-4 py-2 rounded-md text-cyan-50 bg-lime-900 w-[41%]">
+              <div className="text-2xl pl-4 py-2 rounded-md text-cyan-50 bg-lime-900 w-[42%]">
                 Manager
               </div>
               <div className="text-2xl pl-4 py-2 rounded-md text-cyan-50 bg-lime-900 w-[37%]">
@@ -150,8 +154,8 @@ const Dashboard = () => {
                     })
                   )}
                   <PaginationComponent
-                    filter={filter}
-                    setFilter={setFilter}
+                    filter={filterManager}
+                    setFilter={setFilterManager}
                     total={responseManager?.data.totalPage}
                   />
                 </div>
@@ -189,8 +193,8 @@ const Dashboard = () => {
                     })
                   )}
                   <PaginationComponent
-                    filter={filter}
-                    setFilter={setFilter}
+                    filter={filterDirector}
+                    setFilter={setFilterDirector}
                     total={responseDirector?.data.totalPage}
                   />
                 </div>
