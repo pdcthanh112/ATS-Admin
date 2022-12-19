@@ -171,7 +171,9 @@ function CreateAccountForm({ onSubmit }) {
               label="Role"
               form={form}
               rows={roles?.data.map((x) => {
-                return <MenuItem value={x.name}>{x.name}</MenuItem>;
+                if (x.name !== "CANDIDATE") {
+                  return <MenuItem value={x.name}>{x.name}</MenuItem>;
+                }
               })}
             />
           </div>
