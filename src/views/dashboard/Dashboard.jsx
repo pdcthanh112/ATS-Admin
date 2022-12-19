@@ -126,7 +126,7 @@ const Dashboard = () => {
                       <CircularProgress />
                     </Box>
                   ) : (
-                    responseManager.data.responseList.map((data) => {
+                    responseManager.data.responseList?.map((data) => {
                       return (
                         <div>
                           <Card>
@@ -165,7 +165,7 @@ const Dashboard = () => {
                       <CircularProgress />
                     </Box>
                   ) : (
-                    responseDirector.data.responseList.map((data) => {
+                    responseDirector.data.responseList?.map((data) => {
                       return (
                         <div>
                           <Card>
