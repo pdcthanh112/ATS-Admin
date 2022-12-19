@@ -76,7 +76,7 @@ function CreateAccountForm({ onSubmit }) {
 
   const { formState } = form;
   const { isSubmitting } = formState;
-  const genders = ["MALE", "FEMALE"];
+  const genders = ["Male", "Female"];
 
   return (
     <div>
